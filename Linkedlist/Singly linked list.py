@@ -9,6 +9,14 @@ class Linkedlist:
         self.first = None
         self.last = None
 
+    def __str__(self):
+        res = []
+        p = self.first
+        while p:
+            res.append(str(p.data))
+            p = p.link
+        return " -> ".join(res)
+
     def IsEmpty(self):
         return self.first is None
 
@@ -144,3 +152,43 @@ class Linkedlist:
             current = nextNode
 
         self.first = prev
+
+
+if __name__ == "__main__":
+    n1 = Linkedlist()
+    n2 = Linkedlist()
+
+    n2.InsertAtEnd(11)
+    n2.InsertAtEnd(12)
+
+    n1.InsertAtEnd(1)
+    n1.InsertAtEnd(3)
+    n1.InsertAtEnd(2)
+    n1.InsertAtEnd(4)
+
+    print(n1, "Size:", n1.SizeOfList())
+
+    n1.InsertAtIndex(5, 4)
+    print("After InsertAtIndex(5,4):", n1, "Size:", n1.SizeOfList())
+
+    n1.InsertAtBegin(9)
+    print("After InsertAtBegin(9):", n1)
+
+    n1.UpdateNode(10, 3)
+    print("After UpdateNode(10,3):", n1)
+
+    n1.RemoveNodeAtEnd()
+    print("After RemoveNodeAtEnd:", n1, "Size:", n1.SizeOfList())
+
+    n1.RemoveNodeAtBegin()
+    print("After RemoveNodeAtBegin:", n1, "Size:", n1.SizeOfList())
+
+    n1.RemoveNodeAtIndex(0)
+    print("After RemoveNodeAtIndex(0):", n1, "Size:", n1.SizeOfList())
+
+    n1.Concatenate(n2)
+    print("List n2:", n2)
+    print("List n1 after concatenation:", n1)
+
+    n1.Invert()
+    print("List n1 after invert:", n1)
