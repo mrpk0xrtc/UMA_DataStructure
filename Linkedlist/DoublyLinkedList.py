@@ -78,7 +78,15 @@ class DoublyLinkedList:
             return False
 
     def RemoveNodeAtBegin(self):
-        pass
+        if self.IsEmpty():
+            return False
+        data = self.first.data
+        if self.first == self.last:
+            self.first = self.last = None
+        else:
+            self.first = self.first.next
+            self.first.prev = None
+        return data
 
     def RemoveNodeAtEnd(self):
         pass
