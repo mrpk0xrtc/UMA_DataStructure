@@ -89,16 +89,93 @@ class DoublyLinkedList:
         return data
 
     def RemoveNodeAtEnd(self):
-        pass
+        prev = self.last.prev
+        prev.next = None
+        self.last = prev
+        return self.last.data
 
     def RemoveNodeAtIndex(self, Index):
-        pass
+        if Index == 0:
+            return self.RemoveNodeAtBegin()
 
-    def SizeOfList(self):
-        pass
+        count = 0
+        current = self.first
 
-    def Concatenate(self, otherList):
-        pass
+        while count < Index:
+            current = current.next
+            count += 1
+
+        if not current:
+            raise IndexError("Out of range")
+        if not current.next:
+            self.last = current.prev
+
+        prev = current.prev
+        prev.next = current.next
+        current.next.prev = prev
+        return current.data
+
+    def __len__(self):
+        current = self.first
+        size = 0
+        while current != None:
+            size += 1
+            current = current.next
+        return size
+
+    def __add__(self, other):
+        if type(other) != type(self):
+            node = Node(other)
+            other = DoublyLinkedList()
+            other.insert(node)
+        return self.Concatenate(other)
+
+    def Concatenate(self, other):
+        self.last.next = other.first
+        other.first.prev = self.last
+        self.last = other.last
+        return self
 
     def Invert(self):
-        pass
+        current = self.first
+        tail = self.last
+        self.first = tail
+        self.last = current
+
+        while current != tail:
+            tmp = current.next
+
+            n = None if not current.next else current.next.data
+            p = None if not current.prev else current.prev.data
+
+            current.next = current.prev
+            current.prev = tmp
+
+            current = tmp
+
+        current.next = current.prev
+        current.prev = None
+
+if __name__ == "__main__":
+    l = DoublyLinkedList()
+    l2 = DoublyLinkedList()
+    l.InsertAtBegin(1)
+    l.InsertAtEnd(3)
+    l.InsertAtEnd(2)
+    l.InsertAtEnd(9)
+    l.InsertAtEnd(5)
+    l.UpdateNode(4, 1)
+    l2.InsertAtBegin(10)
+    l2.InsertAtEnd(12)
+    l2.InsertAtEnd(11)
+    print(l, len(l))
+    print(l2, len(l2))
+    l += l2
+    print(l, len(l))
+    l.RemoveNodeAtBegin()
+    l.RemoveNodeAtEnd()
+    print(l, len(l))
+    l.RemoveNodeAtIndex(4)
+    print(l, len(l))
+    l.Invert()
+    print(l, len(l))

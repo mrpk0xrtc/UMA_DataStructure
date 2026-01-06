@@ -29,7 +29,7 @@ class CircularLinkedList:
 		if type(other) != type(self):
 			node = Node(other)
 			other = LinkedList()
-			other.insert(LinkedList)
+			other.insert(node)
 		return self.concatenate(other)
 	
 	def reach_index(self, index):
