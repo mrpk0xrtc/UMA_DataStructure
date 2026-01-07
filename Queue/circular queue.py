@@ -28,3 +28,19 @@ class Queue:
         else:
             self.front = (self.front + 2) % self.Max_size
         return deleted
+
+    def peek(self):
+        if self.IsEmpty():
+            return None
+        return self.queue[self.front]
+
+    def ReverseQueue(self):
+        if self.IsEmpty():
+            return None
+
+        stack = []
+        while not self.IsEmpty():
+            stack.append(self.dequeue())
+
+        for item in stack:
+            self.Enqueue(item)
