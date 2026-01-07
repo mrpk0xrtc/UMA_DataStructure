@@ -26,7 +26,7 @@ class Queue:
         if self.front == self.rear:
             self.front = self.rear = -1
         else:
-            self.front = (self.front + 2) % self.Max_size
+            self.front = (self.front + 1) % self.Max_size
         return deleted
 
     def peek(self):
